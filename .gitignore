@@ -38,3 +38,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 Coursera_Data_Science-JHU/
+3_Getting_and_Cleaning_Data/Get_n_Clean_Data/
+4_Exploratory_Data_Analysis/household_power_consumption.txt
+4_Exploratory_Data_Analysis/ExploratoryData_Project1/
