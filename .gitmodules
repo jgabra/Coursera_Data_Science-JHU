@@ -1,3 +1,6 @@
 [submodule "3_Getting_and_Cleaning_Data/tidy_data_project"]
 	path = 3_Getting_and_Cleaning_Data/tidy_data_project
 	url = https://github.com/jgabra/tidy_data_project.git
+[submodule "2_R_Programming/ProgrammingAssignment2"]
+	path = 2_R_Programming/ProgrammingAssignment2
+	url = https://github.com/jgabra/ProgrammingAssignment2.git
