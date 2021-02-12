@@ -4,3 +4,6 @@
 [submodule "2_R_Programming/ProgrammingAssignment2"]
 	path = 2_R_Programming/ProgrammingAssignment2
 	url = https://github.com/jgabra/ProgrammingAssignment2.git
+[submodule "4_Exploratory_Data_Analysis/ExData_Plotting1"]
+	path = 4_Exploratory_Data_Analysis/ExData_Plotting1
+	url = https://github.com/jgabra/ExData_Plotting1.git
