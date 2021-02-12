@@ -1,0 +1,3 @@
+[submodule "3_Getting_and_Cleaning_Data/tidy_data_project"]
+	path = 3_Getting_and_Cleaning_Data/tidy_data_project
+	url = https://github.com/jgabra/tidy_data_project.git
