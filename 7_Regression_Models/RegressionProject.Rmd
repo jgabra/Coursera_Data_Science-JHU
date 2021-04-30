@@ -1,0 +1,72 @@
+---
+title: "RegressionProject"
+author: "JN Gabra"
+date: "4/7/2021"
+output: pdf_document
+
+---
+
+# Executive Summary
+The mtcars data set is used to see if manual transmissions are better for the miles per gallon of a vehicle. Various models are run to determine the best predictors of the miles per gallon (mpg). In general, manual transmissions are better for mpg. If transmission type was the only independent variable for mpg then a manual transmission results in 7.2 mpg increase compared to automatic transmissions. However, when we include other variables we see that there isn't that much of a difference in mpg based on transmission type.
+
+# Preprocessing, Data Loading, and Exploration
+```{r,echo=FALSE}
+require(ggplot2)
+require(GGally)
+data<-mtcars
+```
+```{r}
+g1 = ggpairs(data,lower=list(continuous="smooth"),axisLabels = "internal")+theme(axis.line=element_blank(),axis.text=element_blank(),axis.ticks=element_blank())
+g1
+```
+The above plot shows the correlations between all the variables in mtcars. In this, we can see that many of the variables are correlated.
+
+# Comparing Transmission Types  
+Now, a boxplot will be generated to directly compare the miles per gallon for the different transmission types.
+```{r}
+data$am<-as.factor(data$am)
+g2=ggplot(data,aes(y=mpg,x=am,fill=am))
+g2=g2+geom_boxplot()+theme(legend.position = "none")
+g2=g2+xlab("Transmission Type")+ylab("Miles Per Gallon")+scale_x_discrete(name ="Transmission Type", labels=c("Automatic","Manual"))
+g2
+```
+In the above box plot, we can see that Manual transmissions are associated with higher miles per gallon. Therefore, manual transmissions are better.
+
+# Model Development and Comparisions  
+Now we will test a few different models.
+```{r}
+data<-mtcars
+fit1<-lm(mpg~.,data)
+
+fit2<-lm(mpg~am,data=data)
+summary(fit2)
+```
+If we stop here, we can see that manual transmission cars (am=1) result in a 7.2 mile per gallon increase compared to automatic transmission cars.
+
+What I will do now is try the nested testing method where variables will be added. I will first start with the transmission type variable. I will then add variables to the model in the order of decreassing correlation with mpg. Since cylinder number and displacment are extremely correlated I will only use cylinder number.  
+```{r}
+# Nested Testing with variables added
+# Variables added in order of largest to smallest abs(Corr) with mpg
+# cyl and displacement are extremely correlated and only one is chosen
+fit3<-update(fit2,mpg~am+wt)
+fit4<-update(fit2,mpg~am+wt+cyl)
+fit5<-update(fit2,mpg~am+wt+cyl+hp)
+fit6<-update(fit2,mpg~am+wt+cyl+hp+drat)
+fit7<-update(fit2,mpg~am+wt+cyl+hp+drat+factor(vs))
+anova(fit1,fit2,fit3,fit4,fit5,fit6,fit7)
+```
+From the outputs above we see the that the best model is the one that includes transmission, weight, and cylinders as independent variables.  
+
+Next, we will generate plots from the chosen model to inspect how well it holds up to assumptions.
+```{r}
+par(mfrow=c(2,2))
+plot(fit4)
+```
+This model does decently ok. There seems to be a trend that we are missing in the residuals vs fitted plot. Typically, I would investigate this more, but I will stop here for the scope of the class project.  
+
+Now lets look at the model details
+```{r}
+summary(fit4)
+confint(fit4)
+```
+From this we see that when we adjust the MPG model for transmission, weight, and cylinder number that manual transmissions still produce a slight increase in MPG (0.18) compared to automatic transmissions. However, we see that the transmission variable is no longer a significant predictor for mpg. This is further demonstrated with the 95% confidence interval for the slope of transmission type including 0.
