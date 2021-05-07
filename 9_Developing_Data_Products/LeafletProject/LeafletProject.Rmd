@@ -1,0 +1,24 @@
+---
+title: "Leaflet Project"
+author: "JN Gabra"
+date: "May 7, 2021"
+output: 
+      html_document:
+            keep_md: true
+---
+# The Titanic Ship Wreck
+This is location of the Titanic ship wreck. The Titanic started at Southampton, England and was supposed to dock in New York, New York.
+
+```{r,message=FALSE}
+library(leaflet)
+
+titanic<-data.frame(lat=c(50.9097,41.726931,40.748801),
+                    lng=c(-1.4044,-49.948253,-74.009978)
+                    )
+titanic %>%
+      leaflet() %>%
+      addTiles() %>%
+      addMarkers(popup=c("The Titanic's Starting Point","Titanic Ship Wreck","The Titanic's Desired Destination"))
+
+```
+
