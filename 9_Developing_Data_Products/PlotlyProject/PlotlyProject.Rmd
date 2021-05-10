@@ -1,0 +1,30 @@
+---
+title: "PlotlyProject"
+author: "JN Gabra"
+date: "5/10/2021"
+output: ioslides_presentation
+---
+## Data Preprocessing and Prep  
+This is just data and library loading and some minor preprocessing
+```{r,message=FALSE,results='hide'}
+library(plotly)
+library(plyr)
+data<-mtcars
+data$am<-as.factor(data$am)
+levels(data$am)<-list(Automatic="0",Manual="1")
+```
+
+## Boxplot - MPG versus Transmission Type
+
+```{r,echo=FALSE,warning=FALSE}
+plot_ly(data,y=~mpg, color=~am,type="box")
+```
+
+## MPG vs disp, cyl (size), and transmission (color)
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+plot_ly(data,x=~disp,y=~mpg, color=~am,size=~cyl,type="scatter")
+```
+
+## Thank You
+
+This is the end of the presentation for the project.
